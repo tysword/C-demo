@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="jointexamModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tab_analysis_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="analysis_category" Type="varchar" MaxLength="50" />
+          <Property Name="analysis_name" Type="varchar" MaxLength="50" />
+          <Property Name="analysis_fun" Type="int" />
+          <Property Name="exam_type" Type="int" />
+          <Property Name="use_joints" Type="varchar" MaxLength="200" />
+          <Property Name="ptr_order" Type="int" />
+          <Property Name="result_num" Type="int" />
+          <Property Name="reference_analysis_type" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“def.jointexam.view_result”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_result">
+          <Key>
+            <PropertyRef Name="客户号" />
+            <PropertyRef Name="测试动作" />
+            <PropertyRef Name="analysis_id" />
+          </Key>
+          <Property Name="客户号" Type="int" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="100" />
+          <Property Name="性别" Type="varchar" MaxLength="1" />
+          <Property Name="测试年龄" Type="int" />
+          <Property Name="生日" Type="date" />
+          <Property Name="种族" Type="varchar" MaxLength="10" />
+          <Property Name="身高" Type="float" />
+          <Property Name="体重" Type="float" />
+          <Property Name="测试动作" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="analysis_id" Type="int" Nullable="false" />
+          <Property Name="分析类型" Type="varchar" MaxLength="50" />
+          <Property Name="分析名称" Type="varchar" MaxLength="50" />
+          <Property Name="结果类型" Type="varchar" MaxLength="3" />
+          <Property Name="年龄分组" Type="varchar" MaxLength="5" />
+          <Property Name="结果值" Type="double" />
+          <Property Name="X" Type="double" />
+          <Property Name="Y" Type="double" />
+          <Property Name="Z" Type="double" />
+        </EntityType>
+        <EntityContainer Name="jointexamModelStoreContainer">
+          <EntitySet Name="tab_analysis_type" EntityType="Self.tab_analysis_type" Schema="jointexam" store:Type="Tables" />
+          <EntitySet Name="view_result" EntityType="Self.view_result" store:Type="Views" store:Schema="jointexam">
+            <DefiningQuery>SELECT
+`view_result`.`客户号`, 
+`view_result`.`姓名`, 
+`view_result`.`性别`, 
+`view_result`.`测试年龄`, 
+`view_result`.`生日`, 
+`view_result`.`种族`, 
+`view_result`.`身高`, 
+`view_result`.`体重`, 
+`view_result`.`测试动作`, 
+`view_result`.`analysis_id`, 
+`view_result`.`分析类型`, 
+`view_result`.`分析名称`, 
+`view_result`.`结果类型`, 
+`view_result`.`年龄分组`, 
+`view_result`.`结果值`, 
+`view_result`.`X`, 
+`view_result`.`Y`, 
+`view_result`.`Z`
+FROM `view_result` AS `view_result`</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="jointexamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="view_result">
+          <Key>
+            <PropertyRef Name="客户号" />
+            <PropertyRef Name="测试动作" />
+            <PropertyRef Name="analysis_id" />
+          </Key>
+          <Property Name="客户号" Type="Int32" Nullable="false" />
+          <Property Name="姓名" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="性别" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="测试年龄" Type="Int32" />
+          <Property Name="生日" Type="DateTime" />
+          <Property Name="种族" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="身高" Type="Single" />
+          <Property Name="体重" Type="Single" />
+          <Property Name="测试动作" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="分析类型" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="分析名称" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="结果类型" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="年龄分组" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="结果值" Type="Double" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="Z" Type="Double" />
+          <Property Name="analysis_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="jointexamEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="view_result" EntityType="Self.view_result" />
+          <EntitySet Name="tab_analysis_type" EntityType="jointexamModel.tab_analysis_type" />
+        </EntityContainer>
+        <EntityType Name="tab_analysis_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="analysis_category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="analysis_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="analysis_fun" Type="Int32" />
+          <Property Name="exam_type" Type="Int32" />
+          <Property Name="use_joints" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ptr_order" Type="Int32" />
+          <Property Name="result_num" Type="Int32" />
+          <Property Name="reference_analysis_type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="jointexamModelStoreContainer" CdmEntityContainer="jointexamEntities">
+          <EntitySetMapping Name="view_result">
+            <EntityTypeMapping TypeName="jointexamModel.view_result">
+              <MappingFragment StoreEntitySet="view_result">
+                <ScalarProperty Name="analysis_id" ColumnName="analysis_id" />
+                <ScalarProperty Name="客户号" ColumnName="客户号" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="性别" ColumnName="性别" />
+                <ScalarProperty Name="测试年龄" ColumnName="测试年龄" />
+                <ScalarProperty Name="生日" ColumnName="生日" />
+                <ScalarProperty Name="种族" ColumnName="种族" />
+                <ScalarProperty Name="身高" ColumnName="身高" />
+                <ScalarProperty Name="体重" ColumnName="体重" />
+                <ScalarProperty Name="测试动作" ColumnName="测试动作" />
+                <ScalarProperty Name="分析类型" ColumnName="分析类型" />
+                <ScalarProperty Name="分析名称" ColumnName="分析名称" />
+                <ScalarProperty Name="结果类型" ColumnName="结果类型" />
+                <ScalarProperty Name="年龄分组" ColumnName="年龄分组" />
+                <ScalarProperty Name="结果值" ColumnName="结果值" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tab_analysis_type">
+            <EntityTypeMapping TypeName="jointexamModel.tab_analysis_type">
+              <MappingFragment StoreEntitySet="tab_analysis_type">
+                <ScalarProperty Name="reference_analysis_type" ColumnName="reference_analysis_type" />
+                <ScalarProperty Name="result_num" ColumnName="result_num" />
+                <ScalarProperty Name="ptr_order" ColumnName="ptr_order" />
+                <ScalarProperty Name="use_joints" ColumnName="use_joints" />
+                <ScalarProperty Name="exam_type" ColumnName="exam_type" />
+                <ScalarProperty Name="analysis_fun" ColumnName="analysis_fun" />
+                <ScalarProperty Name="analysis_name" ColumnName="analysis_name" />
+                <ScalarProperty Name="analysis_category" ColumnName="analysis_category" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
